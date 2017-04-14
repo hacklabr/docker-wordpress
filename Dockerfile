@@ -1,11 +1,11 @@
-FROM montefuscolo/php
+FROM montefuscolo/php:1.1
 MAINTAINER Fabio Montefuscolo <fabio.montefuscolo@gmail.com>
 
-RUN curl -s -o wp-cli.phar 'https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar?0.24.1' \
+RUN curl -s -o wp-cli.phar 'https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar?0.25' \
     && chmod +x wp-cli.phar \
     && mv wp-cli.phar /usr/local/bin/wp
 
-RUN wp core download --path=/var/www/html/  --version=4.6.1 --locale=pt_BR --allow-root
+RUN wp core download --path=/var/www/html/ --version=4.7.3 --locale=pt_BR --allow-root
 
 COPY htaccess /var/www/html/.htaccess
 COPY wp-config.php /var/www/html/wp-config.php
