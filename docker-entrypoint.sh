@@ -83,10 +83,11 @@ else
 fi
 
 
+php=`which php`;
 for f in /docker-entrypoint-extra/*; do
     case "$f" in
         *.sh)     echo "$0: running $f"; . "$f" ;;
-        *.php)    echo "$0: running $f"; "${PHP}" < "$f" ;;
+        *.php)    echo "$0: running $f"; "${php}" < "$f" ;;
         *)        echo "$0: ignoring $f" ;;
     esac
     echo
