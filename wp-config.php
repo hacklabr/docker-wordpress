@@ -40,8 +40,9 @@
       $_SERVER['HTTPS'] = 'on';
     }
 
-    if (file_exists(ABSPATH . 'wp-config-extra.php')) {
-        include(ABSPATH . 'wp-config-extra.php');
+    foreach(glob(ABSPATH . 'wp-config.d/*.php') as $config) {
+        include($config);
     }
+
     require_once(ABSPATH . 'wp-settings.php');
 
