@@ -4,7 +4,7 @@ MAINTAINER Fabio Montefuscolo <fabio.montefuscolo@gmail.com>
 RUN curl -s -o wp-cli.phar 'https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar?0.25' \
     && chmod +x wp-cli.phar \
     && mv wp-cli.phar /usr/local/bin/wp \
-    && wp core download --path=/var/www/html/ --version=4.7.3 --locale=pt_BR --allow-root
+    && wp core download --path=/var/www/html/ --version=4.7.4 --locale=pt_BR --allow-root
 
 COPY docker-entrypoint.sh /entrypoint.sh
 COPY htaccess /var/www/html/.htaccess
