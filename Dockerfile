@@ -1,5 +1,5 @@
-FROM montefuscolo/php:1.1
-MAINTAINER Fabio Montefuscolo <fabio.montefuscolo@gmail.com>
+FROM hacklab/php:5.6-apache
+MAINTAINER Hacklab <contato@hacklab.com.br>
 
 RUN curl -s -o wp-cli.phar 'https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar?0.25' \
     && chmod +x wp-cli.phar \
