@@ -4,7 +4,13 @@ MAINTAINER Hacklab <contato@hacklab.com.br>
 RUN curl -s -o wp-cli.phar 'https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar?0.25' \
     && chmod +x wp-cli.phar \
     && mv wp-cli.phar /usr/local/bin/wp \
-    && wp core download --path=/var/www/html/ --version=4.7.4 --locale=pt_BR --allow-root
+    && wp core download --path=/var/www/html/ --version=4.7.4 --locale=pt_BR --allow-root \
+    && {                                       \
+        echo "file_uploads = On";          \
+        echo "upload_max_filesize = 2048M";\
+        echo "post_max_size = 2048M";      \
+        echo "max_file_uploads = 20";      \
+    } > /usr/local/etc/php/conf.d/wordrpess-upload.ini
 
 COPY docker-entrypoint.sh /entrypoint.sh
 COPY htaccess /var/www/html/.htaccess
