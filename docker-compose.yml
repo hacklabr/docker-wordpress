@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+  web:
+    image: hacklab/wordpress
+    environment:
+      - WORDPRESS_DEBUG=true
+      - WORDPRESS_DB_USER=the_db_user
+      - WORDPRESS_DB_PASSWORD=the_db_pass
+      - WORDPRESS_DB_NAME=the_db_name
+    ports:
+      - "80:80"
+
+  mysql:
+    image: mariadb
+    environment:
+      - MYSQL_USER=the_db_user
+      - MYSQL_PASSWORD=the_db_pass
+      - MYSQL_DATABASE=the_db_name
+      - MYSQL_ROOT_PASSWORD=the_root_pass
+      - TERM=xterm
