@@ -32,7 +32,7 @@ then
     unset inifile;
 fi
 
-if [ "$WORDPRESS_DEBUG" = "true" ] && [ "$XDEBUG" != "false" ];
+if [ "$WP_DEBUG" = "true" ] && [ "$XDEBUG" != "false" ];
 then
     inifile="/usr/local/etc/php/conf.d/pecl-xdebug.ini"
     extfile="$(find /usr/local/lib/php/extensions/ -name xdebug.so)";
