@@ -4,7 +4,7 @@ MAINTAINER Hacklab <contato@hacklab.com.br>
 RUN curl -s -o wp-cli.phar 'https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar' \
     && chmod +x wp-cli.phar \
     && mv wp-cli.phar /usr/local/bin/wp \
-    && wp core download --path=/var/www/html/ --version=4.8.1 --locale=pt_BR --allow-root \
+    && wp core download --path=/var/www/html/ --version=4.8.3 --locale=pt_BR --allow-root \
     && { \
         echo "file_uploads = On"; \
         echo "upload_max_filesize = 2048M"; \
