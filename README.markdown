@@ -69,3 +69,50 @@ to configure the section called "php-debug". It should look like this:
       Xdebug: false
     ServerPort: 9000
 ```
+
+## Modules enabled by default
+
+The modules below are used on most of hacklab WordPress projects and probably may be useful for wide range of projects. While modules can take a lot of memory for each Apache process, the modules below enable users to take advantage of a lot of WordPress Cache plugins, like _W3 Total Cache_.
+
+* apcu
+* calendar
+* Core
+* ctype
+* curl
+* date
+* dom
+* fileinfo
+* filter
+* ftp
+* gd
+* hash
+* iconv
+* json
+* libxml
+* mbstring
+* mcrypt
+* memcached
+* mysqli
+* mysqlnd
+* openssl
+* pcre
+* PDO
+* pdo_mysql
+* pdo_sqlite
+* Phar
+* posix
+* readline
+* redis
+* Reflection
+* session
+* SimpleXML
+* sockets
+* SPL
+* sqlite3
+* standard
+* tokenizer
+* xml
+* xmlreader
+* xmlwriter
+* zip
+* zlib

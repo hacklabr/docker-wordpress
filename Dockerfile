@@ -1,7 +1,13 @@
 FROM hacklab/php:7-apache
 MAINTAINER Hacklab <contato@hacklab.com.br>
 
-RUN curl -s -o wp-cli.phar 'https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar' \
+RUN a2enmod headers \
+    && docker-php-ext-install pdo_mysql sockets \
+    && printf "yes" | pecl install memcached \
+    && printf "no\n" | pecl install redis \
+    && echo 'extension=redis.so' > /usr/local/etc/php/conf.d/pecl-redis.ini \
+    && echo 'extension=memcached.so' > /usr/local/etc/php/conf.d/pecl-memcached.ini \
+    && curl -s -o wp-cli.phar 'https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar' \
     && chmod +x wp-cli.phar \
     && mv wp-cli.phar /usr/local/bin/wp \
     && wp core download --path=/var/www/html/ --version=4.9.1 --locale=pt_BR --allow-root \
