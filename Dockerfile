@@ -24,9 +24,11 @@ COPY wp-config.php /var/www/html/wp-config.php
 
 RUN chown -R www-data: /var/www/html/ \
     && mkdir -p /docker-entrypoint-extra \
+    && mkdir -p /var/www/html/wp-config.d \
     && echo "alias wp='/usr/local/bin/wp --allow-root'" >> /root/.bashrc
 
 ENV PAGER /bin/cat
+VOLUME ["/var/www/html/wp-config.d"]
 
 EXPOSE 80 443
 ENTRYPOINT ["/entrypoint.sh"]

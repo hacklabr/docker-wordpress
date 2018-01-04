@@ -5,6 +5,47 @@ can be used to host a WordPress site as well. There are some tools
 and nice librarys included, like *OPCache*, *X-Debug* and *WP-Cli*.
 
 
+## Overriding configurations
+
+You can override wp-config.php values by using environment variables. Actually, the variables present on wp-config.php and values when variable is not defined are below.
+
+| Variable Name              | Default Value                     |
+|----------------------------|-----------------------------------|
+| HTTPS                      |                                   |
+| WORDPRESS_AUTH_KEY         | `<random string>`                 |
+| WORDPRESS_AUTH_SALT        | `<random string>`                 |
+| WORDPRESS_LOGGED_IN_KEY    | `<random string>`                 |
+| WORDPRESS_LOGGED_IN_SALT   | `<random string>`                 |
+| WORDPRESS_NONCE_SALT       | `<random string>`                 |
+| WORDPRESS_SECURE_AUTH_KEY  | `<random string>`                 |
+| WORDPRESS_SECURE_AUTH_SALT | `<random string>`                 |
+| WORDPRESS_NONCE_KEY        | `<random string>`                 |
+| WORDPRESS_DB_CHARSET       | utf8                              |
+| WORDPRESS_DB_COLLATE       |                                   |
+| WORDPRESS_DB_HOST          | mysql                             |
+| WORDPRESS_DB_NAME          | wordpress                         |
+| WORDPRESS_DB_PASSWORD      | wordpress                         |
+| WORDPRESS_DB_USER          | wordpress                         |
+| WORDPRESS_DEBUG            | false                             |
+| WORDPRESS_DEBUG_DISPLAY    | false                             |
+| WORDPRESS_DEBUG_LOG        | false                             |
+| WORDPRESS_FS_METHOD        | direct                            |
+| WORDPRESS_TABLE_PREFIX     | wp_                               |
+| WORDPRESS_HOME             | `<?= $_SERVER['SERVER_NAME']; ?>` |
+| WORDPRESS_SITEURL          | `<?= $_SERVER['SERVER_NAME']; ?>` |
+
+## Overriding variables not defined on wp-config.php
+
+If you have variables not present on table above, you can mount a folder with your configuration at `/var/www/html/wp-config.d`. All php files on that directory will be included on `wp-config.php`. You can also override variables present on default `wp-config.php`.
+
+### Parental advisory
+
+If you are running behind a reverse proxy and inside a Virtual Host, you may be safe about `WORDPRESS_HOME` and `WORDPRESS_SITEURL` default values.
+
+But if you container receive requests with unexpected `SERVER_NAME`, you __must__ provide values for those variables.
+
+In any case, it is a good idea to provide values for those variables.
+
 ## Development environment
 
 There are a WordPress installed at `/var/www/html`. So if you want
