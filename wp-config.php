@@ -1,34 +1,36 @@
 <?php
-    define('DB_USER',          getenv('WORDPRESS_DB_USER')        ?: 'wordpress');
-    define('DB_NAME',          getenv('WORDPRESS_DB_NAME')        ?: 'wordpress');
-    define('DB_PASSWORD',      getenv('WORDPRESS_DB_PASSWORD')    ?: 'wordpress');
-    define('DB_HOST',          getenv('WORDPRESS_DB_HOST')        ?: 'mysql');
-    define('DB_CHARSET',       getenv('WORDPRESS_DB_CHARSET')     ?: 'utf8');
-    define('DB_COLLATE',       getenv('WORDPRESS_DB_COLLATE')     ?: '');
+    foreach(glob(dirname(__FILE__) . '/' . 'wp-config.d/*.php') as $config) {
+        include($config);
+    }
 
-    define('AUTH_KEY',         getenv('WORDPRESS_AUTH_KEY'));
-    define('SECURE_AUTH_KEY',  getenv('WORDPRESS_SECURE_AUTH_KEY'));
-    define('LOGGED_IN_KEY',    getenv('WORDPRESS_LOGGED_IN_KEY'));
-    define('NONCE_KEY',        getenv('WORDPRESS_NONCE_KEY'));
-    define('AUTH_SALT',        getenv('WORDPRESS_AUTH_SALT'));
-    define('SECURE_AUTH_SALT', getenv('WORDPRESS_SECURE_AUTH_SALT'));
-    define('LOGGED_IN_SALT',   getenv('WORDPRESS_LOGGED_IN_SALT'));
-    define('NONCE_SALT',       getenv('WORDPRESS_NONCE_SALT'));
+    !defined('DB_USER')          && define('DB_USER',          getenv('WORDPRESS_DB_USER')        ?: 'wordpress');
+    !defined('DB_NAME')          && define('DB_NAME',          getenv('WORDPRESS_DB_NAME')        ?: 'wordpress');
+    !defined('DB_PASSWORD')      && define('DB_PASSWORD',      getenv('WORDPRESS_DB_PASSWORD')    ?: 'wordpress');
+    !defined('DB_HOST')          && define('DB_HOST',          getenv('WORDPRESS_DB_HOST')        ?: 'mysql');
+    !defined('DB_CHARSET')       && define('DB_CHARSET',       getenv('WORDPRESS_DB_CHARSET')     ?: 'utf8');
+    !defined('DB_COLLATE')       && define('DB_COLLATE',       getenv('WORDPRESS_DB_COLLATE')     ?: '');
 
-    define('FS_METHOD',        getenv('WORDPRESS_FS_METHOD')      ?: 'direct');
+    !defined('AUTH_KEY')         && define('AUTH_KEY',         getenv('WORDPRESS_AUTH_KEY'));
+    !defined('SECURE_AUTH_KEY')  && define('SECURE_AUTH_KEY',  getenv('WORDPRESS_SECURE_AUTH_KEY'));
+    !defined('LOGGED_IN_KEY')    && define('LOGGED_IN_KEY',    getenv('WORDPRESS_LOGGED_IN_KEY'));
+    !defined('NONCE_KEY')        && define('NONCE_KEY',        getenv('WORDPRESS_NONCE_KEY'));
+    !defined('AUTH_SALT')        && define('AUTH_SALT',        getenv('WORDPRESS_AUTH_SALT'));
+    !defined('SECURE_AUTH_SALT') && define('SECURE_AUTH_SALT', getenv('WORDPRESS_SECURE_AUTH_SALT'));
+    !defined('LOGGED_IN_SALT')   && define('LOGGED_IN_SALT',   getenv('WORDPRESS_LOGGED_IN_SALT'));
+    !defined('NONCE_SALT')       && define('NONCE_SALT',       getenv('WORDPRESS_NONCE_SALT'));
+    !defined('FS_METHOD')        && define('FS_METHOD',        getenv('WORDPRESS_FS_METHOD')      ?: 'direct');
 
-    $table_prefix  =           getenv('WORDPRESS_TABLE_PREFIX')   ?: 'wp_';
-    define('WP_DEBUG',         getenv('WORDPRESS_DEBUG')         === 'true');
-    define('WP_DEBUG_LOG',     getenv('WORDPRESS_DEBUG_LOG')     === 'true');
-    define('WP_DEBUG_DISPLAY', getenv('WORDPRESS_DEBUG_DISPLAY') === 'true');
+    !defined('WP_DEBUG')         && define('WP_DEBUG',         getenv('WORDPRESS_DEBUG')         === 'true');
+    !defined('WP_DEBUG_LOG')     && define('WP_DEBUG_LOG',     getenv('WORDPRESS_DEBUG_LOG')     === 'true');
+    !defined('WP_DEBUG_DISPLAY') && define('WP_DEBUG_DISPLAY', getenv('WORDPRESS_DEBUG_DISPLAY') === 'true');
+
+    if(!isset($table_prefix)) {
+        $table_prefix = getenv('WORDPRESS_TABLE_PREFIX')   ?: 'wp_';
+    }
 
     if ( !WP_DEBUG_LOG ) {
         ini_set('log_errors', 1);
         ini_set('error_log', 'php://stderr');
-    }
-
-    if ( !defined('ABSPATH') ) {
-        define('ABSPATH', dirname(__FILE__) . '/');
     }
 
     if(getenv('HTTPS') === 'on') {
@@ -40,9 +42,29 @@
       $_SERVER['HTTPS'] = 'on';
     }
 
-    foreach(glob(ABSPATH . 'wp-config.d/*.php') as $config) {
-        include($config);
+    $proto = 'http://';
+    if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
+        $proto = 'https://';
     }
 
-    require_once(ABSPATH . 'wp-settings.php');
+    if(!defined('WP_HOME')) {
+        if (getenv('WORDPRESS_HOME')) {
+            define('WP_HOME', getenv('WORDPRESS_HOME'));
+        } else {
+            define('WP_HOME', $proto . $_SERVER['SERVER_NAME']);
+        }
+    }
 
+    if(!defined('WP_SITEURL')) {
+        if (getenv('WORDPRESS_SITEURL')) {
+            define('WP_SITEURL', getenv('WORDPRESS_SITEURL'));
+        } else {
+            define('WP_SITEURL', $proto . $_SERVER['SERVER_NAME']);
+        }
+    }
+    unset($proto);
+
+    if (!defined('ABSPATH') ) {
+        define('ABSPATH', dirname(__FILE__) . '/');
+    }
+    require_once(ABSPATH . 'wp-settings.php');
