@@ -1,0 +1,3 @@
+#!/bin/bash
+PAGER=cat
+/usr/local/bin/php /opt/wp-cli/wp-cli.phar --allow-root $@
