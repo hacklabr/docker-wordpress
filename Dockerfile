@@ -1,4 +1,4 @@
-FROM hacklab/php:7-apache
+FROM hacklab/php:5.6-apache
 MAINTAINER Hacklab <contato@hacklab.com.br>
 
 ARG WP_VERSION=4.9.5
