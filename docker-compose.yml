@@ -2,7 +2,7 @@ version: '2'
 
 services:
   web:
-    image: hacklab/wordpress
+    image: diegodorgam/wordpress:latest
     environment:
       - WORDPRESS_DEBUG=true
       - WORDPRESS_DB_USER=the_db_user
