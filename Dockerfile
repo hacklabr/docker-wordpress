@@ -1,7 +1,9 @@
 FROM hacklab/php:7.2-apache
-MAINTAINER Hacklab <contato@hacklab.com.br>
+LABEL maintainer="Diego Dorgam<diego@dorgam.com.br>"
+LABEL creator="Hacklab<contato@hacklab.com.br>"
 
-ARG WP_VERSION=5.1
+ARG WP_VERSION=5.1.1
+
 COPY root/ /
 
 RUN a2enmod headers \

@@ -93,4 +93,26 @@ for f in /docker-entrypoint-extra/*; do
     echo
 done
 
+# Install WordPress
+cd /var/www/html
+#wp core config --dbhost=$WORDPRESS_DB_HOST --dbname=$WORDPRESS_DB_NAME --dbuser=$WORDPRESS_DB_USER --dbpass=$WORDPRESS_DB_PASSWORD --dbprefix=$WORDPRESS_TABLE_PREFIX
+chmod 644 wp-config.php
+wp core install --url=$WORDPRESS_SITEURL --title="${WORDPRESS_BLOG_NAME}" --admin_name=$WORDPRESS_USERNAME --admin_password="${WORDPRESS_PASSWORD}" --admin_email="${WORDPRESS_EMAIL}"
+wp user update $WORDPRESS_USERNAME --first_name="${WORDPRESS_FIRST_NAME}" --last_name="${WORDPRESS_LAST_NAME}"
+
+# Create uploads folder
+cd wp-content
+mkdir uploads
+chgrp www-data uploads/
+chmod 775 uploads/
+
+# Update WordPress options
+wp option update permalink_structure '/%postname%/'  
+wp option update default_ping_status 'closed'  
+wp option update default_pingback_flag '0'  
+
+# Install some usefull plugins
+wp plugin install all-in-one-wp-security-and-firewall w3-total-cache --activate
+#wp plugin install jetpack wordpress-seo regenerate-thumbnails cloudflare
+
 exec "$@"

@@ -6,7 +6,8 @@
     !defined('DB_USER')          && define('DB_USER',          getenv('WORDPRESS_DB_USER')        ?: 'wordpress');
     !defined('DB_NAME')          && define('DB_NAME',          getenv('WORDPRESS_DB_NAME')        ?: 'wordpress');
     !defined('DB_PASSWORD')      && define('DB_PASSWORD',      getenv('WORDPRESS_DB_PASSWORD')    ?: 'wordpress');
-    !defined('DB_HOST')          && define('DB_HOST',          getenv('WORDPRESS_DB_HOST')        ?: 'mysql');
+    !defined('DB_HOST')          && define('DB_HOST',          getenv('WORDPRESS_DB_HOST')        ?: 'mariadb');
+    !defined('DB_PORT')          && define('DB_PORT',          getenv('WORDPRESS_DB_PORT')        ?: '3306');
     !defined('DB_CHARSET')       && define('DB_CHARSET',       getenv('WORDPRESS_DB_CHARSET')     ?: 'utf8');
     !defined('DB_COLLATE')       && define('DB_COLLATE',       getenv('WORDPRESS_DB_COLLATE')     ?: '');
 
@@ -23,6 +24,8 @@
     !defined('WP_DEBUG')         && define('WP_DEBUG',         getenv('WORDPRESS_DEBUG')         === 'true');
     !defined('WP_DEBUG_LOG')     && define('WP_DEBUG_LOG',     getenv('WORDPRESS_DEBUG_LOG')     === 'true');
     !defined('WP_DEBUG_DISPLAY') && define('WP_DEBUG_DISPLAY', getenv('WORDPRESS_DEBUG_DISPLAY') === 'true');
+    
+    !defined('WP_CONTENT_URL') && define('WP_CONTENT_URL', getenv('WORDPRESS_CONTENT_URL') ?: '/wp-content');
 
     if(!isset($table_prefix)) {
         $table_prefix = getenv('WORDPRESS_TABLE_PREFIX')   ?: 'wp_';

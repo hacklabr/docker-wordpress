@@ -1,21 +1,37 @@
-version: '2'
+version: '3'
 
 services:
-  web:
-    image: diegodorgam/wordpress:latest
+  wordpress:
+    build: .
+    image: wordpress:5.1.1
     environment:
       - WORDPRESS_DEBUG=true
-      - WORDPRESS_DB_USER=the_db_user
-      - WORDPRESS_DB_PASSWORD=the_db_pass
-      - WORDPRESS_DB_NAME=the_db_name
+      - WORDPRESS_DB_HOST=mariadb
+      - WORDPRESS_DB_PORT=3306
+      - WORDPRESS_DB_NAME=wordpress
+      - WORDPRESS_DB_USER=wordpress
+      - WORDPRESS_DB_PASSWORD=wordpress
+      - WORDPRESS_USERNAME=admin
+      - WORDPRESS_PASSWORD=changeme
+      - WORDPRESS_EMAIL=email@change.me
+      - WORDPRESS_FIRST_NAME=WordPress
+      - WORDPRESS_LAST_NAME=Administrator
+      - WORDPRESS_BLOG_NAME=My Docker Blog
+      - WORDPRESS_SITEURL=http://localhost
+      - WORDPRESS_HOME=http://localhost
+      - WORDPRESS_TABLE_PREFIX=wp_
     ports:
       - "80:80"
+    depends_on: 
+      - mariadb
 
-  mysql:
-    image: mariadb
+  mariadb:
+    image: mariadb:latest
     environment:
-      - MYSQL_USER=the_db_user
-      - MYSQL_PASSWORD=the_db_pass
-      - MYSQL_DATABASE=the_db_name
-      - MYSQL_ROOT_PASSWORD=the_root_pass
+      - MYSQL_USER=wordpress
+      - MYSQL_PASSWORD=wordpress
+      - MYSQL_DATABASE=wordpress
+      - MYSQL_ROOT_PASSWORD=wordpress
       - TERM=xterm
+    volumes: 
+      - ./data:/var/lib/mysql:rw
