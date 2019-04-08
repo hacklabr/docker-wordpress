@@ -33,6 +33,12 @@ You can override wp-config.php values by using environment variables. Actually, 
 | WORDPRESS_TABLE_PREFIX     | wp_                               |
 | WORDPRESS_HOME             | `<?= $_SERVER['SERVER_NAME']; ?>` |
 | WORDPRESS_SITEURL          | `<?= $_SERVER['SERVER_NAME']; ?>` |
+| WORDPRESS_USERNAME         | admin                             |
+| WORDPRESS_PASSWORD         | changeme                          |
+| WORDPRESS_EMAIL            | email@change.me                   |
+| WORDPRESS_FIRST_NAME       | WordPress                         |
+| WORDPRESS_LAST_NAME        | Administrator                     |
+| WORDPRESS_BLOG_NAME        | My Docker Blog                    |
 
 ## Overriding variables not defined on wp-config.php
 
