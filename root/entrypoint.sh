@@ -103,7 +103,7 @@ wp user update $WORDPRESS_USERNAME --first_name="${WORDPRESS_FIRST_NAME}" --last
 # Create uploads folder
 cd wp-content
 mkdir uploads
-chgrp www-data uploads/
+chown -R www-data: *
 chmod 775 uploads/
 
 # Update WordPress options

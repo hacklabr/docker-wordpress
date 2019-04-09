@@ -25,8 +25,6 @@
     !defined('WP_DEBUG_LOG')     && define('WP_DEBUG_LOG',     getenv('WORDPRESS_DEBUG_LOG')     === 'true');
     !defined('WP_DEBUG_DISPLAY') && define('WP_DEBUG_DISPLAY', getenv('WORDPRESS_DEBUG_DISPLAY') === 'true');
     
-    !defined('WP_CONTENT_URL') && define('WP_CONTENT_URL', getenv('WORDPRESS_CONTENT_URL') ?: '/wp-content');
-
     if(!isset($table_prefix)) {
         $table_prefix = getenv('WORDPRESS_TABLE_PREFIX')   ?: 'wp_';
     }
