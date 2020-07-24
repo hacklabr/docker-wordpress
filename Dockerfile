@@ -1,7 +1,7 @@
-FROM hacklab/php:7.3-apache
+FROM hacklab/php:7.4-apache
 MAINTAINER Hacklab <contato@hacklab.com.br>
 
-ARG WP_VERSION=5.4
+ARG WP_VERSION=5.4.2
 COPY root/ /
 
 RUN a2enmod headers \
