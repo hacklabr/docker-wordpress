@@ -4,6 +4,12 @@ MAINTAINER Hacklab <contato@hacklab.com.br>
 ARG WP_VERSION=5.6
 COPY root/ /
 
+RUN apt-get update 
+RUN apt-get -y install libmagickwand-dev --no-install-recommends 
+RUN printf "\n" | pecl install imagick 
+RUN docker-php-ext-enable imagick 
+RUN rm -r /var/lib/apt/lists/*
+
 RUN a2enmod headers \
     && docker-php-ext-install pdo_mysql sockets \
     && printf "no\n" | pecl install redis \
