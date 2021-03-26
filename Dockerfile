@@ -1,7 +1,7 @@
 FROM hacklab/php:7.4-apache
 MAINTAINER Hacklab <contato@hacklab.com.br>
 
-ARG WP_VERSION=5.7
+ARG WP_VERSION=5.4.0
 COPY root/ /
 
 RUN apt-get update 
@@ -9,6 +9,8 @@ RUN apt-get -y install libmagickwand-dev --no-install-recommends
 RUN printf "\n" | pecl install imagick 
 RUN docker-php-ext-enable imagick 
 RUN rm -r /var/lib/apt/lists/*
+RUN apt-get install -y libxml2-dev
+RUN docker-php-ext-install soap
 
 RUN a2enmod headers \
     && docker-php-ext-install pdo_mysql sockets \
