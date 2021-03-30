@@ -3,6 +3,21 @@ MAINTAINER Hacklab <contato@hacklab.com.br>
 
 ARG WP_VERSION=5.2.2
 COPY root/ /
+RUN apt-get update 
+RUN apt-get -y install libmagickwand-dev --no-install-recommends 
+RUN printf "\n" | pecl install imagick 
+RUN docker-php-ext-enable imagick 
+RUN rm -r /var/lib/apt/lists/*
+RUN apt-get install -y libxml2-dev
+RUN docker-php-ext-install soap
+
+RUN apt-get -yqq update
+RUN apt-get -yqq install exiftool
+RUN docker-php-ext-configure exif
+RUN docker-php-ext-install exif
+RUN docker-php-ext-enable exif
+
+
 
 RUN a2enmod headers \
     && docker-php-ext-install pdo_mysql sockets \
