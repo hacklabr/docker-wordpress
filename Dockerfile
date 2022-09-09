@@ -1,7 +1,7 @@
 FROM hacklab/php:7.4-apache
 MAINTAINER Hacklab <contato@hacklab.com.br>
 
-ARG WP_VERSION=5.9.1
+ARG WP_VERSION=6.0.0
 COPY root/ /
 
 RUN apt-get update 
