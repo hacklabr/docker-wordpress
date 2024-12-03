@@ -1,7 +1,7 @@
-FROM hacklab/php:7.4-apache
+FROM hacklab/php:8.1-apache
 MAINTAINER Hacklab <contato@hacklab.com.br>
 
-ARG WP_VERSION=6.1.1
+ARG WP_VERSION=6.3.1
 COPY root/ /
 
 RUN apt-get update 
@@ -33,6 +33,8 @@ RUN a2enmod headers \
     && chown -R www-data: /var/www/html/ \
     && mkdir -p /docker-entrypoint-extra \
     && mkdir -p /var/www/html/wp-config.d
+
+COPY custom.ini /usr/local/etc/php/conf.d/custom.ini
 
 EXPOSE 80 443
 ENTRYPOINT ["/entrypoint.sh"]
